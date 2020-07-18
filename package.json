@@ -1,0 +1,30 @@
+{
+  "name": "authentication",
+  "version": "1.0.0",
+  "description": "authentication server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Hiten Chowdhary",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "ioredis": "^4.10.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.6.1",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "yargs": "^13.2.4"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
