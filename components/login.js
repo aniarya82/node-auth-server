@@ -1,26 +1,37 @@
 import bcrypt from "bcrypt";
+import User from "../models/user.js";
 
-const login = async function(res, req) {
+function alert(err) {
+  console.log("Error : Promise unhandled ", err);
+}
+
+const login = async function(req, res) {
   console.log(JSON.stringify(req.body));
   var success = false;
   var result = {};
-  try {
-    // Here I have used Mongo directly
-    // But one can use an API to send request
-    // And wait till you have a success
-    user = await User.findOne({ mobno: req.body.mobno });
-    if (bcrypt.compareSync(req.body.password, user.password)) {
-      success = true;
-      result = user;
-      //   res.clearCookie("user");
-      //   res.cookie("user", user, { maxAge: 360000 });
-    } else {
-      console.log("Credential mismatch");
-      result = { msg: "Credential mismatch" };
-    }
-  } catch (e) {
-    console.log("error in try catch block");
-  }
-  res.json({ success: success, data: result });
+  User.findOne({ mobno: req.body.mobno })
+    .then(user => {
+      if (user == null) {
+        result = { msg: "No user found" };
+        res.json({ success: success, data: result });
+      }
+      console.log("User from db", JSON.stringify(user));
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then(match => {
+          if (match) {
+            success = true;
+            result = user;
+            res.json({ success: success, data: result });
+            //   res.clearCookie("user");
+            //   res.cookie("user", user, { maxAge: 360000 });
+          } else {
+            result = { msg: "Credential mismatch" };
+            res.json({ success: success, data: result });
+          }
+        })
+        .catch(err => alert(err));
+    })
+    .catch(err => alert(err));
 };
 export default login;

@@ -1,5 +1,5 @@
-import Login from "../components/login";
-import Register from "../components/register";
+import Login from "../components/login.js";
+import Register from "../components/register.js";
 
 const routes = app => {
   app.get("/", (req, res) => {

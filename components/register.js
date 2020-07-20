@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import User from "../models/user.js";
 
 const register = async function(req, res) {
   console.log("Register Request", JSON.stringify(req.body));

@@ -1,12 +1,12 @@
 import express from "express";
-import { json, urlencoded } from "body-parser";
-import routes from "./routes/routes";
+import bodyParser from "body-parser";
+import routes from "./routes/routes.js";
 const port = 3001;
 const app = express();
 
-app.use(json());
+app.use(bodyParser.json());
 app.use(
-  urlencoded({
+  bodyParser.urlencoded({
     extended: true
   })
 );
